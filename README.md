@@ -15,3 +15,7 @@
 
 Pada soal 3, terdapat 4 tahap pengerjaan yang terdiri dari 
 A. pembuatan directory "indomie" dan "sedaap" pada /home/[USER]/modul2
+
+```
+
+```
