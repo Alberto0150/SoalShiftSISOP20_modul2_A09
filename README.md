@@ -5,8 +5,10 @@
 
 ## Soal 1 
  > Source code 
- > **[soal1.sh](https://github.com/Alberto0150/SoalShiftSISOP20_modul1_A09/blob/master/Soal1/soal1.sh)**
+ > **[soal1.c](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal1/soal1.c)**
 
 ---
 
 ## Soal 3
+> Source code 
+> **[soal3.c](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal1/soal1.c)**
