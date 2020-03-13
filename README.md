@@ -13,7 +13,7 @@
 > Source code 
 > **[soal3.c](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/soal3.c)**
 
-Pada soal 3, terdapat 4 tahap pengerjaan yang terdiri dari 
+Pada soal 3, terdapat 4 tahap pengerjaan yang terdiri dari  :
 A. pembuatan directory "indomie" dan "sedaap" pada /home/[USER]/modul2 dengan cara pembuatan child dengan fork dan menggunakan mkdir dengan syarat jeda waktu pembuatan directory 5 detik, seperti kode berikut :
 
 ```
@@ -89,6 +89,7 @@ while(1)
 }
 ```
 namun hingga tahap ini masih terdapat kesalahan karena belum dapat dipisah pada 2 file yang diminta.
+
 D. Membuat 2 file.txt yang diletakkan pada setiap directory yg di pindahkan pada directory "indomie" dimana setiap .txt berjeda 3 detik.
 
 Tahap D belum selesai pengerjaannya
