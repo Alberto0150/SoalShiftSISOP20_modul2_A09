@@ -14,6 +14,7 @@
 > **[soal3.c](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/soal3.c)**
 
 Pada soal 3, terdapat 4 tahap pengerjaan yang terdiri dari  :
+
 A. pembuatan directory "indomie" dan "sedaap" pada /home/[USER]/modul2 dengan cara pembuatan child dengan fork dan menggunakan mkdir dengan syarat jeda waktu pembuatan directory 5 detik, seperti kode berikut :
 
 ```
