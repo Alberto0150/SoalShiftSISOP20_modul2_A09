@@ -46,6 +46,7 @@ if(child_id == 0)
 
 
 // bagian C
+sleep(1);
 struct dirent *check;
 DIR* masuk;
 
