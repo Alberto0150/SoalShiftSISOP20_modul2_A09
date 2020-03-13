@@ -4,6 +4,7 @@
 
 int main() 
 {
+//bagian A
 pid_t child_id;
 int status;
 
@@ -28,5 +29,12 @@ if (child_id == 0)
 		execv("/bin/mkdir", argv);
 	}
 
-
+// bagian B
+sleep(1);
+child_id = fork();
+if(child_id == 0)
+{
+	char *argv[] = {"unzip","jpg.zip",NULL};
+	execv("/usr/bin/unzip", argv);
+}
 }
