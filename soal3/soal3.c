@@ -11,50 +11,53 @@
 int main() 
 {
 //bagian A
-pid_t child_id;
+pid_t anakan,child_id ;
 int status;
 
-child_id = fork();
+anakan = fork();
+if(anakan == 0)
+{
+	child_id = fork();
 
-if (child_id < 0) 
-	{
-		exit(EXIT_FAILURE); 
-	}
+	if (child_id < 0) 
+		{
+			exit(EXIT_FAILURE); 
+		}
 
-if (child_id == 0) 
-	{
+	if (child_id == 0) 
+		{
 
-		char *argv[] = {"mkdir", "-p", "/home/alberto/modul2/indomie", NULL};
-		execv("/bin/mkdir", argv);
-	}
-sleep(5);
-child_id = fork();
-if (child_id == 0) 
-	{	
-		char *argv[] = {"mkdir", "-p", "/home/alberto/modul2/sedaap", NULL};
-		execv("/bin/mkdir", argv);
-	}
+			char *argv[] = {"mkdir", "-p", "/home/alberto/modul2/indomie", NULL};
+			execv("/bin/mkdir", argv);
+		}
+	sleep(5);
+	child_id = fork();
+	if (child_id == 0) 
+		{	
+			char *argv[] = {"mkdir", "-p", "/home/alberto/modul2/sedaap", NULL};
+			execv("/bin/mkdir", argv);
+		}
 
 // bagian B
-sleep(1);
-child_id = fork();
-if(child_id == 0)
-{
-	char *argv[] = {"unzip","jpg.zip",NULL};
-	execv("/usr/bin/unzip", argv);
+	sleep(1);
+	child_id = fork();
+	if(child_id == 0)
+	{
+		char *argv[] = {"unzip","jpg.zip",NULL};
+		execv("/usr/bin/unzip", argv);
+	}
 }
 
-
 // bagian C
+
 struct dirent *check;
-DIR *masuk;
-masuk = opendir("/home/alberto/modul2/jpg");
-if(dir==NULL)
+DIR *masuk = opendir("/home/alberto/modul2/jpg");
+if(masuk==NULL)
 {
 return 0;
 }
 
-while(check = readdir(masuk) != NULL)
+while((check = readdir(masuk))!= NULL)
 {
 	
 	char nama[100];
@@ -69,24 +72,23 @@ while(check = readdir(masuk) != NULL)
 		strcat(nama,check->d_name);
 		if(stat(nama,&typestat) == 0)
 		{
-		if(typestat.st_mode & S_IFDIR)
-		{
-			child_id = fork();
-			if(child_id == 0)
+			if(typestat.st_mode & S_IFDIR)
 			{
-				char *argv[] = {"mv",nama,"/home/alberto/modul2/indomie",NULL};
-				execv("/bin/mv",argv);
+				if(anakan = fork() == 0)
+				{
+					char *argv[] = {"mv",nama,"/home/alberto/modul2/indomie",NULL};
+					execv("/bin/mv",argv);
+				}
 			}
-		}
-		else if (typestat.st_mode & S_IFREG)
-		{
-			child_id = fork();
-			if (child_id == 0)
+			else if (typestat.st_mode & S_IFREG)
 			{
-				char *argv[] = {"mv",nama,"/home/alberto/modul2/sedaap",NULL};
-				execv("/bin/mv",argv);
+				anakan = fork();
+				if (anakan == 0)
+				{
+					char *argv[] = {"mv",nama,"/home/alberto/modul2/sedaap",NULL};
+					execv("/bin/mv",argv);
+				}
 			}
-		}
 		}
 	}
 
