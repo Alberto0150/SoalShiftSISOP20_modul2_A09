@@ -1,3 +1,4 @@
+
 #include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -47,9 +48,8 @@ if(anakan == 0)
 		execv("/usr/bin/unzip", argv);
 	}
 }
-
 // bagian C
-
+sleep(2);
 struct dirent *check;
 DIR *masuk = opendir("/home/alberto/modul2/jpg");
 if(masuk==NULL)
@@ -62,14 +62,10 @@ while((check = readdir(masuk))!= NULL)
 	
 	char nama[100];
 	struct stat typestat;
-	if(strcmp(check->d_name,".")==0 || strcmp(check->d_name,".."==0))
-	{
-		continue;
-	}
-	else
-	{
+	
 		strcpy(nama,"/home/alberto/modul2/jpg/");
 		strcat(nama,check->d_name);
+		printf("%s \n",nama);
 		if(stat(nama,&typestat) == 0)
 		{
 			if(typestat.st_mode & S_IFDIR)
@@ -82,17 +78,20 @@ while((check = readdir(masuk))!= NULL)
 			}
 			else if (typestat.st_mode & S_IFREG)
 			{
-				anakan = fork();
-				if (anakan == 0)
+				
+				if (anakan = fork() == 0)
 				{
 					char *argv[] = {"mv",nama,"/home/alberto/modul2/sedaap",NULL};
 					execv("/bin/mv",argv);
 				}
 			}
 		}
-	}
-
+	
 
 }
 closedir(masuk);
+
+//bagian D
+
+
 }
