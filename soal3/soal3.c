@@ -46,35 +46,51 @@ if(child_id == 0)
 
 
 // bagian C
-sleep(1);
 struct dirent *check;
-DIR* masuk;
-
-masuk = opendir("/home/alberto/modul2/jpg/");
-check = readdir(masuk);
-char nama[100];
-
-while(1)
+DIR *masuk;
+masuk = opendir("/home/alberto/modul2/jpg");
+if(dir==NULL)
 {
-	if (check == NULL)
+return 0;
+}
+
+while(check = readdir(masuk) != NULL)
+{
+	
+	char nama[100];
+	struct stat typestat;
+	if(strcmp(check->d_name,".")==0 || strcmp(check->d_name,".."==0))
 	{
-		break;
+		continue;
 	}
 	else
 	{
 		strcpy(nama,"/home/alberto/modul2/jpg/");
 		strcat(nama,check->d_name);
-		if(check->d_type==DT_DIR)
+		if(stat(nama,&typestat) == 0)
 		{
-			char *argv[] = {"mv",nama,"/home/alberto/modul2/indomie",NULL};
-			execv("/bin/mv",argv);
-		}
-		else if (check->d_type==DT_REG)
+		if(typestat.st_mode & S_IFDIR)
 		{
-			char *argv[] = {"mv",nama,"/home/alberto/modul2/sedaap",NULL};
-			execv("/bin/mv",argv);
+			child_id = fork();
+			if(child_id == 0)
+			{
+				char *argv[] = {"mv",nama,"/home/alberto/modul2/indomie",NULL};
+				execv("/bin/mv",argv);
+			}
 		}
-
+		else if (typestat.st_mode & S_IFREG)
+		{
+			child_id = fork();
+			if (child_id == 0)
+			{
+				char *argv[] = {"mv",nama,"/home/alberto/modul2/sedaap",NULL};
+				execv("/bin/mv",argv);
+			}
+		}
+		}
 	}
+
+
 }
+closedir(masuk);
 }
