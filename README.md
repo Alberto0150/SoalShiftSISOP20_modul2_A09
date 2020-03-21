@@ -67,6 +67,21 @@ kodingan diatas dilakukan ketika argumen telah cocok maka melakukan kondisi if u
 
 screenshot diatas merupakan bukti program perjalan secara daemon
 
+argumen yang di run pada program ini adalah 
+```
+./soal1 \* \* \* /home/adam/testing.sh
+```
+isi dari testing .sh
+```
+#!/bin/bash
+
+ls /home/adam/SISOP >> /home/adam/Downloads/testing.txt
+```
+
+![result](/img/result.png)
+
+screenshot diatas merupakan hasil dari argumen yang telah di run
+
 ## Soal 3
 > Source code 
 > **[soal3.c](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/soal3.c)**
