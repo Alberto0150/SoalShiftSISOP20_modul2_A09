@@ -6,64 +6,69 @@
 ## Soal 1 
  > Source code 
  > **[soal1.c](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal1/soal1.c)**
-
 ---
-## Soal 2
- > Source code 
- > **[soal2.c](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal2/soal2.c)**
-
-Pada soal 2 terdapat 5 sub soal dimana terdapat catatan dan hint berupa
-Catatan:
-- Tidak boleh memakai system().
-- Program utama harus ter-detach dari terminal
-Hint:
-- Gunakan fitur picsum.photos untuk mendapatkan gambar dengan ukuran
-tertentu
-- Epoch Unix bisa didapatkan dari time()
-
-A. Diminta untuk membuat sebuah folder khusus, di dalamnya dia membuat
-sebuah program C yang per 30 detik membuat sebuah folder dengan nama
-timestamp [YYYY-mm-dd_HH:ii:ss].
+Pada Soal 1a diminta program menerima 4 argumen yaitu detik, menit, jam dan file dengan tipe .sh
 ```
-pid_t newf;
-newf=fork();
-time(&now);
-struct tm *local= localtime(&now);
-char waktu[20];
-strftime(waktu,20,"%Y-%m-%d_%T",local):
-char namafile[1000];
-strcpy(namafile,"/home/alberto/praktikum2/Soal2praktikum2/");
-strcat(namafile,waktu);
-if(newf==0)
-{
-	char *argv[] = {"mkdir", "-p", namafile, NULL};
-	execv("/bin/mkdir", argv);
-}
+int main (int argc, char *argv[]){
+	int detik = -1;
+	int menit = -1;
+	int jam = -1;
+	if(argc != 5){
+		printf("Error Arguments\n");
+		exit(0);
 ```
-dimana pada akhirnya ditambahkan 
-```sleep(30) ```
+kodingan diatas memiliki fungsi untuk deklarasi state awal detik, menit, jam dengan -1 agar jika inputan argumen merupakan * tetap jalan. lalu ada kondisi if untuk mendapatkan 4 argumen tidak boleh lebih atau kurang, jika lebih atau kurang akan mengeluarkan pesan error arguments.
+```
+else{
+		if((strcmp(argv[1], "*")) != 0 ){
+			int detik = atoi(argv[1]);
+			if(detik > 59 && detik < -1){
+				printf("Error Arguments\n");
+				exit(0);
+			}
+		}
+		if((strcmp(argv[2], "*")) != 0){
+			int menit = atoi(argv[2]);
+			if(menit > 59 && menit < -1){
+				printf("Error Arguments\n");
+				exit(0);
+			}
+		}
+		if((strcmp(argv[3], "*")) != 0){
+			int jam = atoi(argv[3]);
+			if(jam > 23 && jam < -1){
+				printf("Error Arguments\n");
+				exit(0);
+			}
+		}
+		int panjang = strlen(argv[4]);
+		if(argv[4][panjang-3] != '.' && argv[4][panjang-2] != 's' && argv[4][panjang-1] != 'h'){
+			printf("Error Arguments\n");
+			exit(0);
+		}
+```
+kodingan diatas berguna untuk melakukan pengecekan terhadap argumen yang telah dimasukan, jikq tidak sesuai dengan aturan yang diinginkan maka akan mengeluarkan pesan Error Arguments.
+```
+while(1){
+		time_t now;
+		time(&now);
+		struct tm *local = localtime(&now);
 
-Namun kendala untuk soal B sampai E adalah belum menemukan cara mengerjakan soal tersebut
-hasil dari nomor 2 soal A
+		if((detik == local->tm_sec || detik == -1) && (menit == local->tm_min || menit == -1) && (jam == local->tm_hour || jam == -1)){
+			char *jalan[] = {"bash", argv[4], NULL};
+			execv("bin/bash", jalan);
+		}
+	sleep(1);
+	}
+```
+kodingan diatas dilakukan ketika argumen telah cocok maka melakukan kondisi if untuk menyamakan waktu sekarang dengan waktu yang dimasukan pada argumen. jika waktu sekarang dan waktu argummen telah cocok maka program akan berjalan
 
-
-![alt text](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal2/soal2.png)
-
-
-
-
-
----
 
 ## Soal 3
 > Source code 
 > **[soal3.c](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/soal3.c)**
 
-Pada soal 3, terdapat 4 tahap pengerjaan yang juga terdiri dari catatan:
-- Tidak boleh memakai system().
-- Tidak boleh memakai function C mkdir() ataupun rename().
-- Gunakan exec dan fork
-- Direktori “.” dan “..” tidak termasuk
+Pada soal 3, terdapat 4 tahap pengerjaan yang terdiri dari  :
 
 A. pembuatan directory "indomie" dan "sedaap" pada /home/[USER]/modul2 dengan cara pembuatan child dengan fork dan menggunakan mkdir dengan syarat jeda waktu pembuatan directory 5 detik, seperti kode berikut :
 
@@ -190,22 +195,4 @@ while((buat = readdir(dir))!= NULL)
 	}
 }
 closedir(dir);
-```
-didapatkan hasil directory untuk nomor 3 soal A dan B
-
-![alt text](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/hasil%20file.png)
-
-didapatkan hasil nomor 3 C
-
-![alt text](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/dalam%20indomie.png)
-![alt text](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/dalam%20sedaap.png)
-
-didapatkan hasil nomor 3 D
-
-![alt text](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/dalam%20file%20di%20indomie.png)
-
-Kendala yang dialami adalah error yang muncul ketika menjalankan 3C dimana muncul
-```
-mv: cannot move '/home/alberto/modul2/jpg/.' to '/home/alberto/modul2/indomie/.': Device or resource busy
-mv: '/home/alberto/modul2/jpg/..' and '/home/alberto/modul2/indomie/..' are the same file
 ```
