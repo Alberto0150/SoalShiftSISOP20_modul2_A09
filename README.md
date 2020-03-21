@@ -81,6 +81,37 @@ ls /home/adam/SISOP >> /home/adam/Downloads/testing.txt
 ![result](/img/result.png)
 
 screenshot diatas merupakan hasil dari argumen yang telah di run
+## Soal 2
+> Source code 
+> **[soal2.c](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal2/soal2.c)**
+
+Pada soal 2 diminta untuk mengerjakan 5 buah sub soal:
+A. Diminta membuat sebuah folder khusus, di dalamnya dia membuat sebuah program C yang per 30 detik membuat sebuah folder dengan nama timestamp [YYYY-mm-dd_HH:ii:ss].
+
+ Dikerjakan dengan menggunakan header time dan deklarasi
+```time_t now; ```
+serta fungsi :
+```
+pid_t newf;
+newf=fork();
+time(&now);
+struct tm *local= localtime(&now);
+char waktu[20];
+strftime(waktu,20,"%Y-%m-%d_%T",local):
+char namafile[1000];
+strcpy(namafile,"/home/alberto/praktikum2/Soal2praktikum2/");
+strcat(namafile,waktu);
+if(newf==0)
+{
+	char *argv[] = {"mkdir", "-p", namafile, NULL};
+	execv("/bin/mkdir", argv);
+}
+sleep(30);
+```
+Kendala yang dihadapi : untuk B sampai E belum menemukan cara mengerjakannya
+Hasil untuk 2 A :
+
+![result](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal2/soal2.png)
 
 ## Soal 3
 > Source code 
