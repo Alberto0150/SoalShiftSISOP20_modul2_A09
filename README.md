@@ -57,40 +57,87 @@ C. memisahkan semua direktori  ke “/home/[USER]/modul2/indomie/” dan semua f
 “/home/[USER]/modul2/sedaap/”, dengan cara :
 
 ```
-sleep(1);
+sleep(2);
 struct dirent *check;
-DIR* masuk;
-
-masuk = opendir("/home/alberto/modul2/jpg/");
-check = readdir(masuk);
-char nama[100];
-
-while(1)
+DIR *masuk = opendir("/home/alberto/modul2/jpg");
+if(masuk==NULL)
 {
-	if (check == NULL)
+return 0;
+}
+
+while((check = readdir(masuk))!= NULL)
+{
+	
+	char nama[100];
+	struct stat typestat;
+		strcpy(nama,"/home/alberto/modul2/jpg/");
+		strcat(nama,check->d_name);
+		printf("%s \n",nama);
+		if(stat(nama,&typestat) == 0)
+		{
+			if(typestat.st_mode & S_IFDIR)
+			{
+				if(anakan = fork() == 0)
+				{
+					char *argv[] = {"mv",nama,"/home/alberto/modul2/indomie",NULL};
+					execv("/bin/mv",argv);
+				}
+			}
+			else if (typestat.st_mode & S_IFREG)
+			{
+				
+				if (anakan = fork() == 0)
+				{
+					char *argv[] = {"mv",nama,"/home/alberto/modul2/sedaap",NULL};
+					execv("/bin/mv",argv);
+				}
+			}
+		}
+	
+
+}
+closedir(masuk);
+
+```
+
+
+D. Membuat 2 file.txt yang diletakkan pada setiap directory yg dipindahkan pada directory "indomie" dimana setiap .txt berjeda 3 detik.
+```
+sleep(2);
+struct dirent *buat;
+DIR *dir = opendir("/home/alberto/modul2/indomie");
+if(dir==NULL)
+{
+	return 0;
+}
+
+while((buat = readdir(dir))!= NULL)
+{
+	if(strcmp(buat->d_name,".")==0 || strcmp(buat->d_name,"..")==0)
 	{
-		break;
+        	continue;
 	}
 	else
 	{
-		strcpy(nama,"/home/alberto/modul2/jpg/");
-		strcat(nama,check->d_name);
-		if(check->d_type==DT_DIR)
+		char nama[100];
+		strcpy(nama,"/home/alberto/modul2/indomie/");
+		strcat(nama,buat->d_name);
+		anakan=fork();
+		if(anakan == 0)
 		{
-			char *argv[] = {"mv",nama,"/home/alberto/modul2/indomie",NULL};
-			execv("/bin/mv",argv);
+			chdir(nama);
+			char *temp[]={"touch","coba1.txt",NULL};
+			execv("/bin/touch",temp);
 		}
-		else if (check->d_type==DT_REG)
+		sleep(3);
+		anakan=fork();
+		if(anakan == 0)
 		{
-			char *argv[] = {"mv",nama,"/home/alberto/modul2/sedaap",NULL};
-			execv("/bin/mv",argv);
-		}
-
+			chdir(nama);
+			char *temp[]={"touch","coba2.txt",NULL};
+			execv("/bin/touch",temp);
+		}	
 	}
 }
+closedir(dir);
 ```
-namun hingga tahap ini masih terdapat kesalahan karena belum dapat dipisah pada 2 file yang diminta.
-
-D. Membuat 2 file.txt yang diletakkan pada setiap directory yg di pindahkan pada directory "indomie" dimana setiap .txt berjeda 3 detik.
-
-Tahap D belum selesai pengerjaannya
