@@ -109,6 +109,7 @@ if(newf==0)
 sleep(30);
 ```
 Kendala yang dihadapi : untuk B sampai E belum menemukan cara mengerjakannya
+
 Hasil untuk 2 A :
 
 ![result](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal2/soal2.png)
@@ -245,3 +246,14 @@ while((buat = readdir(dir))!= NULL)
 }
 closedir(dir);
 ```
+Dari kodingan diatas didapatkan untuk soal 3 A dan B:
+
+![alttext](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/hasil%20file.png)
+
+Hasil untuk 3C :
+
+![alttext](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/dalam%20indomie.png)
+![alttext](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/dalam%20sedaap.png)
+
+Dan untuk hasil 3D :
+![alttext](https://github.com/Alberto0150/SoalShiftSISOP20_modul2_A09/blob/master/soal3/dalam%20file%20di%20indomie.png)
