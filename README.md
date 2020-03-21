@@ -63,6 +63,9 @@ while(1){
 ```
 kodingan diatas dilakukan ketika argumen telah cocok maka melakukan kondisi if untuk menyamakan waktu sekarang dengan waktu yang dimasukan pada argumen. jika waktu sekarang dan waktu argummen telah cocok maka program akan berjalan
 
+![daemon Process](/img/daemon.png)
+
+screenshot diatas merupakan bukti program perjalan secara daemon
 
 ## Soal 3
 > Source code 
